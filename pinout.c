@@ -1,6 +1,6 @@
 
 // Output definitions
-
+// test
 #define LED2        LATBbits.LATB10	
 #define LED1        LATFbits.LATF7
 #define BAT2_EN     LATDbits.LATD14
@@ -23,7 +23,7 @@
 #define LEFT_REAR_LIGHT_DIRECTION_INDICATOR     LATGbits.LATG3
 #define RIGHT_REAR_LIGHT_STOP   LATFbits.LATF4
 #define LEFT_REAR_LIGHT_STOP_LAMP   LATFbits.LATF5
-
+#define TEST test
 
 // Input definitions
 
