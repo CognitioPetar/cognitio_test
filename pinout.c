@@ -23,7 +23,7 @@
 #define LEFT_REAR_LIGHT_DIRECTION_INDICATOR     LATGbits.LATG3
 #define RIGHT_REAR_LIGHT_STOP   LATFbits.LATF4
 #define LEFT_REAR_LIGHT_STOP_LAMP   LATFbits.LATF5
-#define TEST test
+#define TEST2 test2
 
 // Input definitions
 
