@@ -24,6 +24,7 @@
 #define RIGHT_REAR_LIGHT_STOP   LATFbits.LATF4
 #define LEFT_REAR_LIGHT_STOP_LAMP   LATFbits.LATF5
 #define TEST2 test2
+#define feature branch
 
 // Input definitions
 
