@@ -1,1 +1,25 @@
-/home/petar/Desktop/setup
+setup
+EEPROM inicijalizacija
+inicijalizacija pinova
+inicijalizacija PWM-a
+
+poravnavanje rotora i statora
+
+inicijalizacija enkodera
+
+glavna petlja 
+
+***sampling petlje
+sampling struje
+sampling brzine
+
+*** Serial petlje
+Serial ulaz
+Serial diagnostika (izlaz)
+
+*** zaštitne petlje
+Strujna zaštita
+Temperaturna zaštita
+
+*** Glavna kontrolna petlja
+Kontrola motora
