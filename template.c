@@ -4,6 +4,9 @@
 // https://stackoverflow.com/questions/1675351/typedef-struct-vs-struct-definitions sa typedef ne moraš pisati stalno struct
 // https://stackoverflow.com/questions/32698293/assign-values-to-structure-variables 
 
+
+// BLA BLA 
+
 #include <stdio.h>
 #include <string.h>
  
