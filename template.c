@@ -5,7 +5,8 @@
 // https://stackoverflow.com/questions/32698293/assign-values-to-structure-variables 
 
 
-// BLA BLA 
+// MAIN
+
 
 #include <stdio.h>
 #include <string.h>
