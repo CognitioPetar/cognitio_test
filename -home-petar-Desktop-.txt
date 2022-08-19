@@ -1,0 +1,90 @@
+setup
+EEPROM inicijalizacija
+inicijalizacija pinova
+inicijalizacija PWM-a
+
+poravnavanje rotora i statora
+
+inicijalizacija enkodera
+
+glavna petlja 
+
+***sampling petlje
+sampling struje
+sampling brzine
+
+*** Serial petlje
+Serial ulaz
+Serial diagnostika (izlaz)
+
+*** zaštitne petlje
+Strujna zaštita
+Temperaturna zaštita
+
+*** Glavna kontrolna petlja
+Kontrola motora
+
+
+***Kontrola motora***
+
+Glavna petlja BLDC kontrolera podjeljena je na dijelove koda koji se moraju izvršavati periodički poput mjerenje struje, slanje podatak preko UART-a
+... Te na kod koji se mora izvoditi što brže i nije vremenski limitiran tajmerima. Kod koji nije limitirian zadužen je za komutaciju motora, pračenje enkodera 
+i primanje podatak preko UART-a. Način rada motora se mijenja sa if i else if grananjem. Ako je prisutan error motor odlazi u gravity compensation način rada dok 
+dok je ostalim načinima pridodjeljen broj primjerice position hold je broj 5. Ako preko UART-a primimo naredbu da motor otiđe u position hold, mijenja se varijabla mode
+na vrijednost 5. 
+
+New_Max_Duty = ((Max_Duty * Output) / 1000) ;
+
+Output predstavlja izlaz PID regulatora dok je New_Max_Duty varijabla koja regulira PWM duty cycle motora u move_BLDC(dir_); funkciji
+
+EncoderCount = BLDC_encoder.getEncoderCount();
+
+A = map(pwmSin[abs(currentStepA)], 0, Max_Duty, 0, New_Max_Duty);
+B = map(pwmSin[abs(currentStepB)], 0, Max_Duty, 0, New_Max_Duty);
+C = map(pwmSin[abs(currentStepC)], 0, Max_Duty, 0, New_Max_Duty)
+
+void loop() {
+
+  Get_input();
+  Current_sample(Main_current_sample_time); // 1ms
+  Get_speed(Main_speed_sample_time);  // 3ms
+  Serial_diagnostic(Main_serial_output_time); // Should be 10 ms i.e. 10000
+  Current_protection(Main_current_protection_time); // 0.5s
+  Temperature_sample(Main_temperature_sample_time); // 2s
+
+  if ( Raise_error == 0) {
+    if (mode == 1) {
+      GOTO_position_speed();
+    }
+    else if (mode == 2) {
+      Position_hold_mode();
+    }
+    else if ( mode == 3) {
+      GOTO_position_speed_no_hold();
+    }
+    else if ( mode == 4) {
+      Gravitiy_compensation_mode();
+    }
+    else if ( mode == 5) {
+      Position_hold_mode();
+    }
+    else if ( mode == 6) {
+      Normal_position_hold();
+    }
+    else if ( mode == 7) {
+      GOTO_position_speed_no_hold();
+    }
+    else if ( mode == 8) {
+      Normal_position_hold();
+    }
+    else if ( mode == 9) {
+      // nothing
+    }
+  } else {
+    PID_position.SetTunings(3.2, 0, 0);
+    Gravitiy_compensation_mode();
+  }
+
+  New_Max_Duty = ((Max_Duty * Output) / 1000) ;
+  move_BLDC(dir_);
+}
